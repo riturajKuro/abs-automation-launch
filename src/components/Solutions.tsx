@@ -1,4 +1,5 @@
 import { Share2, Target, Phone, BarChart, Smartphone } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const solutions = [
   {
@@ -64,29 +65,41 @@ const solutions = [
 ];
 
 const Solutions = () => {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  
   return (
     <section className="py-24 relative">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto space-y-16">
-          <div className="text-center space-y-4 animate-fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+          <div 
+            ref={titleRef}
+            className={`text-center space-y-4 transition-all duration-700 ${
+              titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-condensed font-bold text-foreground">
               What ABS <span className="text-primary">Automates For You</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {solutions.map((solution, index) => (
-              <div
-                key={index}
-                className="group p-8 rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_40px_-10px] hover:shadow-primary/30 animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="space-y-6">
-                  <div className="p-4 rounded-xl bg-primary/10 text-primary w-fit group-hover:scale-110 transition-transform">
-                    <solution.icon className="w-8 h-8" />
-                  </div>
+            {solutions.map((solution, index) => {
+              const { ref, isVisible } = useScrollAnimation();
+              return (
+                <div
+                  key={index}
+                  ref={ref}
+                  className={`group p-8 rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_50px_-10px] hover:shadow-primary/40 hover:-translate-y-2 ${
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                  }`}
+                  style={{ transitionDelay: isVisible ? `${index * 0.15}s` : "0s" }}
+                >
+                  <div className="space-y-6">
+                    <div className="p-4 rounded-xl bg-primary/10 text-primary w-fit group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                      <solution.icon className="w-8 h-8" />
+                    </div>
 
-                  <h3 className="text-2xl font-bold text-foreground">{solution.title}</h3>
+                    <h3 className="text-2xl font-condensed font-bold text-foreground">{solution.title}</h3>
 
                   <ul className="space-y-3">
                     {solution.features.map((feature, i) => (
@@ -104,7 +117,8 @@ const Solutions = () => {
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
