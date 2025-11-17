@@ -20,17 +20,20 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/95 backdrop-blur-lg border-b border-border" : "bg-transparent"
+        isScrolled ? "bg-background/95 backdrop-blur-lg border-b border-border shadow-lg shadow-primary/5" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src={absLogo} alt="ABS Logo" className="h-12 w-12" />
-            <span className="text-xl font-bold text-foreground">ABS</span>
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <img src={absLogo} alt="ABS Logo" className="h-12 w-12 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" />
+            <span className="text-xl font-condensed font-bold text-foreground">ABS</span>
           </div>
 
-          <Button onClick={scrollToContact} className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8">
+          <Button 
+            onClick={scrollToContact} 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:-translate-y-0.5"
+          >
             Book Strategy Call
           </Button>
         </div>

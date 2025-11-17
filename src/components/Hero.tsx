@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import TypewriterEffect from "./TypewriterEffect";
+import dashboardMockup from "@/assets/dashboard-mockup.png";
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -19,8 +21,8 @@ const Hero = () => {
             AI-Powered Business Automation
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
-            Turn Chaos Into <span className="text-primary">Predictable Revenue</span> With Done-For-You AI Automation Systems
+          <h1 className="text-5xl md:text-7xl font-display font-bold text-foreground leading-tight">
+            Turn <TypewriterEffect words={["Chaos", "Bottlenecks", "Manual Work", "Lost Leads"]} className="text-primary" /> Into Predictable Revenue With Done-For-You AI Automation Systems
           </h1>
 
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -39,15 +41,15 @@ const Hero = () => {
           </div>
 
           {/* Dashboard Mockup */}
-          <div className="pt-16">
-            <div className="relative rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border p-8 backdrop-blur-sm shadow-2xl">
-              <div className="aspect-video rounded-lg bg-muted/20 border border-border/50 flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                    <Sparkles className="w-10 h-10 text-primary" />
-                  </div>
-                  <p className="text-muted-foreground">AI Automation Dashboard</p>
-                </div>
+          <div className="pt-16 group">
+            <div className="relative rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border p-4 md:p-8 backdrop-blur-sm shadow-2xl transition-all duration-500 hover:shadow-[0_0_60px_-15px] hover:shadow-primary/40 hover:border-primary/30">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative rounded-lg overflow-hidden border border-border/50">
+                <img 
+                  src={dashboardMockup} 
+                  alt="AI Automation Dashboard showing real-time analytics, lead flow, and performance metrics" 
+                  className="w-full h-auto transform transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
             </div>
           </div>

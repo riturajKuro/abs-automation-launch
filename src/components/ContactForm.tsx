@@ -5,9 +5,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ContactForm = () => {
   const { toast } = useToast();
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
   const [formData, setFormData] = useState({
     fullName: "",
     businessName: "",
@@ -50,8 +53,13 @@ const ContactForm = () => {
     <section id="contact" className="py-24 relative">
       <div className="container mx-auto px-6">
         <div className="max-w-2xl mx-auto space-y-12">
-          <div className="text-center space-y-4 animate-fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+          <div 
+            ref={titleRef}
+            className={`text-center space-y-4 transition-all duration-700 ${
+              titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-condensed font-bold text-foreground">
               Let's <span className="text-primary">Automate Your Business</span>
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -59,7 +67,12 @@ const ContactForm = () => {
             </p>
           </div>
 
-          <div className="p-8 md:p-12 rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border backdrop-blur-sm">
+          <div 
+            ref={formRef}
+            className={`p-8 md:p-12 rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border backdrop-blur-sm hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/10 ${
+              formVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
+          >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -156,7 +169,7 @@ const ContactForm = () => {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg py-6 shadow-[0_0_40px_-10px] shadow-primary/50 transition-all hover:shadow-primary/70"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg py-6 shadow-[0_0_40px_-10px] shadow-primary/50 transition-all duration-300 hover:shadow-primary/70 hover:-translate-y-0.5"
               >
                 Book My Free Strategy Call
                 <Send className="ml-2 w-5 h-5" />
