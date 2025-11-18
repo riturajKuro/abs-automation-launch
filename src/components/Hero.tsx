@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { RippleButton } from "@/components/ui/ripple-button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import TypewriterEffect from "./TypewriterEffect";
+import { TextRotate } from "@/components/ui/text-rotate";
 import dashboardMockup from "@/assets/dashboard-mockup.png";
 import heroBackground from "@/assets/hero-background.jpg";
 
@@ -34,7 +34,7 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-display font-bold text-foreground leading-tight">
-            Turn <TypewriterEffect words={["Chaos", "Bottlenecks", "Manual Work", "Lost Leads"]} className="text-primary" /> Into Predictable Revenue With Done-For-You AI Automation Systems
+            Turn <TextRotate texts={["Chaos", "Bottlenecks", "Manual Work", "Lost Leads"]} mainClassName="text-primary inline-flex" rotationInterval={2000} /> Into Predictable Revenue With Done-For-You AI Automation Systems
           </h1>
 
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -42,14 +42,14 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-            <Button
+            <RippleButton
               onClick={scrollToContact}
-              size="lg"
-              className="group bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg px-8 py-6 shadow-[0_0_40px_-10px] shadow-primary/50 transition-all duration-500 hover:shadow-[0_0_60px_-5px] hover:shadow-primary/80 hover:-translate-y-2 hover:scale-105"
+              className="group bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg px-8 py-6 rounded-md shadow-[0_0_40px_-10px] shadow-primary/50 transition-all duration-500 hover:shadow-[0_0_60px_-5px] hover:shadow-primary/80 hover:-translate-y-2 hover:scale-105"
+              rippleColor="rgba(255, 255, 255, 0.3)"
             >
               Book My Free Strategy Call
               <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-500 group-hover:translate-x-1" />
-            </Button>
+            </RippleButton>
           </div>
 
           {/* Dashboard Mockup */}
