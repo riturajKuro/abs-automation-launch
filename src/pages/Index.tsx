@@ -6,18 +6,22 @@ import WhyChoose from "@/components/WhyChoose";
 import ContactForm from "@/components/ContactForm";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <Hero />
-      <Problems />
-      <Solutions />
-      <WhyChoose />
-      <ContactForm />
-      <FinalCTA />
-      <Footer />
+    <div className="min-h-screen bg-background relative">
+      <AnimatedBackground />
+      <div className="relative z-10">
+        <Navigation />
+        <Hero />
+        <Problems />
+        <Solutions />
+        <WhyChoose />
+        <ContactForm />
+        <FinalCTA />
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -69,7 +69,7 @@ const ContactForm = () => {
 
           <div 
             ref={formRef}
-            className={`p-8 md:p-12 rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border backdrop-blur-sm hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/10 ${
+            className={`p-8 md:p-12 rounded-2xl bg-gradient-to-br from-card/80 to-card/50 backdrop-blur-lg border border-border hover:border-primary/50 transition-all duration-700 hover:shadow-[0_0_60px_-10px] hover:shadow-primary/30 ${
               formVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
@@ -169,10 +169,10 @@ const ContactForm = () => {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg py-6 shadow-[0_0_40px_-10px] shadow-primary/50 transition-all duration-300 hover:shadow-primary/70 hover:-translate-y-0.5"
+                className="group w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg py-6 shadow-[0_0_40px_-10px] shadow-primary/50 transition-all duration-700 hover:shadow-[0_0_60px_-5px] hover:shadow-primary/80 hover:-translate-y-1 hover:scale-[1.02]"
               >
                 Book My Free Strategy Call
-                <Send className="ml-2 w-5 h-5" />
+                <Send className="ml-2 w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 group-hover:rotate-12" />
               </Button>
 
               <p className="text-xs text-muted-foreground text-center pt-4">
