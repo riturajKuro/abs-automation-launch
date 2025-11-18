@@ -30,7 +30,7 @@ const WhyChoose = () => {
 
           <div 
             ref={cardRef}
-            className={`p-8 md:p-12 rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border hover:border-primary/30 transition-all duration-500 ${
+            className={`p-8 md:p-12 rounded-2xl bg-gradient-to-br from-card/70 to-card/40 backdrop-blur-md border border-border hover:border-primary/50 transition-all duration-700 hover:shadow-[0_0_50px_-10px] hover:shadow-primary/30 hover:-translate-y-1 ${
               cardVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
@@ -38,15 +38,15 @@ const WhyChoose = () => {
               {benefits.map((benefit, index) => (
                 <div
                   key={index}
-                  className={`flex items-center gap-4 p-4 rounded-xl hover:bg-muted/20 transition-all duration-300 hover:translate-x-2 ${
+                  className={`group flex items-center gap-4 p-4 rounded-xl hover:bg-muted/30 transition-all duration-500 hover:translate-x-3 hover:shadow-[0_0_20px_-5px] hover:shadow-primary/20 ${
                     cardVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
                   }`}
                   style={{ transitionDelay: cardVisible ? `${index * 0.1}s` : "0s" }}
                 >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center hover:scale-125 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center group-hover:scale-150 group-hover:shadow-[0_0_15px] group-hover:shadow-primary/60 transition-all duration-500">
                     <Check className="w-5 h-5 text-primary" />
                   </div>
-                  <p className="text-lg text-foreground font-medium">{benefit}</p>
+                  <p className="text-lg text-foreground font-medium group-hover:text-primary/90 transition-colors duration-300">{benefit}</p>
                 </div>
               ))}
             </div>

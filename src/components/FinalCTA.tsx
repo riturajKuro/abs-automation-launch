@@ -28,10 +28,10 @@ const FinalCTA = () => {
           <Button
             onClick={scrollToContact}
             size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg px-12 py-6 shadow-[0_0_60px_-10px] shadow-primary/60 transition-all duration-300 hover:shadow-primary/80 hover:scale-105 hover:-translate-y-1"
+            className="group bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg px-12 py-6 shadow-[0_0_60px_-10px] shadow-primary/60 transition-all duration-700 hover:shadow-[0_0_80px_0px] hover:shadow-primary/90 hover:scale-110 hover:-translate-y-2"
           >
             Book My Free Strategy Call
-            <ArrowRight className="ml-2 w-5 h-5" />
+            <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-500 group-hover:translate-x-2" />
           </Button>
         </div>
       </div>

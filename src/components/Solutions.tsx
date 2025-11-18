@@ -86,20 +86,20 @@ const Solutions = () => {
             {solutions.map((solution, index) => {
               const { ref, isVisible } = useScrollAnimation();
               return (
-                <div
-                  key={index}
-                  ref={ref}
-                  className={`group p-8 rounded-2xl bg-gradient-to-br from-card to-card/50 border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_50px_-10px] hover:shadow-primary/40 hover:-translate-y-2 ${
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                  }`}
-                  style={{ transitionDelay: isVisible ? `${index * 0.15}s` : "0s" }}
-                >
-                  <div className="space-y-6">
-                    <div className="p-4 rounded-xl bg-primary/10 text-primary w-fit group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                      <solution.icon className="w-8 h-8" />
-                    </div>
+            <div
+              key={index}
+              ref={ref}
+              className={`group p-8 rounded-2xl bg-card/60 backdrop-blur-md border border-border hover:border-primary/60 transition-all duration-700 hover:shadow-[0_0_40px_-5px] hover:shadow-primary/30 hover:-translate-y-3 hover:scale-[1.02] ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: isVisible ? `${index * 0.15}s` : "0s" }}
+            >
+              <div className="space-y-6">
+                <div className="p-4 rounded-xl bg-primary/10 text-primary w-fit group-hover:scale-125 group-hover:rotate-6 group-hover:shadow-[0_0_25px] group-hover:shadow-primary/50 transition-all duration-700">
+                  <solution.icon className="w-8 h-8" />
+                </div>
 
-                    <h3 className="text-2xl font-condensed font-bold text-foreground">{solution.title}</h3>
+                <h3 className="text-2xl font-condensed font-bold text-foreground group-hover:text-primary/90 transition-colors duration-500">{solution.title}</h3>
 
                   <ul className="space-y-3">
                     {solution.features.map((feature, i) => (
