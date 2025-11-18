@@ -1,5 +1,6 @@
 import absLogo from "@/assets/abs-logo.png";
 import { Linkedin, Twitter, Mail } from "lucide-react";
+import { RippleButton } from "@/components/ui/ripple-button";
 
 const Footer = () => {
   return (
@@ -46,24 +47,15 @@ const Footer = () => {
             <div className="space-y-4">
               <h3 className="text-foreground font-condensed font-semibold">Connect</h3>
               <div className="flex gap-4">
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/30"
-                >
+                <RippleButton className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/30">
                   <Linkedin className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/30"
-                >
+                </RippleButton>
+                <RippleButton className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/30">
                   <Twitter className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/30"
-                >
+                </RippleButton>
+                <RippleButton className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/30">
                   <Mail className="w-5 h-5" />
-                </a>
+                </RippleButton>
               </div>
             </div>
           </div>

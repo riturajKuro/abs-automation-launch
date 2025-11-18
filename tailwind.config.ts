@@ -129,6 +129,15 @@ export default {
           "0%, 100%": { transform: "translate(0, 0)" },
           "50%": { transform: "translate(2px, 2px)" },
         },
+        "rippling": {
+          "0%": { transform: "scale(0)", opacity: "1" },
+          "100%": { transform: "scale(4)", opacity: "0" },
+        },
+        "rainbow": {
+          "0%": { backgroundPosition: "0 0" },
+          "50%": { backgroundPosition: "400% 0" },
+          "100%": { backgroundPosition: "0 0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -146,6 +155,8 @@ export default {
         "spin-reverse": "spin-reverse 15s linear infinite",
         "pulse-slow": "pulse-slow 4s ease-in-out infinite",
         "magnetic": "magnetic 3s ease-in-out infinite",
+        "rippling": "rippling 600ms ease-out",
+        "rainbow": "rainbow 20s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

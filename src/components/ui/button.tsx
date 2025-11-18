@@ -15,6 +15,7 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        rainbow: "relative bg-black text-white border-none before:absolute before:inset-[-2px] before:bg-[linear-gradient(45deg,#fb0094,#0000ff,#00ff00,#ffff00,#ff0000,#fb0094,#0000ff,#00ff00,#ffff00,#ff0000)] before:bg-[length:400%] before:rounded-xl before:-z-10 before:animate-rainbow after:absolute after:inset-[-2px] after:bg-[linear-gradient(45deg,#fb0094,#0000ff,#00ff00,#ffff00,#ff0000,#fb0094,#0000ff,#00ff00,#ffff00,#ff0000)] after:bg-[length:400%] after:rounded-xl after:-z-10 after:animate-rainbow after:blur-[50px]",
       },
       size: {
         default: "h-10 px-4 py-2",
