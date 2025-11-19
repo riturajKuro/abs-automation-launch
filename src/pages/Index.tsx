@@ -1,4 +1,4 @@
-import Navigation from "@/components/Navigation";
+import { Header } from "@/components/Header";
 import Hero from "@/components/Hero";
 import Problems from "@/components/Problems";
 import Solutions from "@/components/Solutions";
@@ -14,7 +14,7 @@ const Index = () => {
     <div className="min-h-screen bg-background relative">
       <AnimatedBackground />
       <div className="relative z-10">
-        <Navigation />
+        <Header />
         <Hero />
         <Problems />
         <Solutions />
