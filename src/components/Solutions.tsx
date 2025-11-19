@@ -68,7 +68,7 @@ const Solutions = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
   
   return (
-    <section className="py-24 relative">
+    <section id="solutions" className="py-24 relative">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto space-y-16">
           <div 

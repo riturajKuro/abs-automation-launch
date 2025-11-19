@@ -14,7 +14,7 @@ const WhyChoose = () => {
   const { ref: cardRef, isVisible: cardVisible } = useScrollAnimation();
   
   return (
-    <section className="py-24 relative">
+    <section id="why-choose" className="py-24 relative">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto space-y-12">
           <div 

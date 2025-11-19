@@ -32,7 +32,7 @@ const Problems = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
   
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section id="problems" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto space-y-16">
           <div 
