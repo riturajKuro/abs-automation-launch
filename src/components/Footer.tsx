@@ -27,13 +27,13 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-all duration-300 text-sm inline-block hover:translate-x-1">
-                    Services
+                  <a href="#solutions" className="text-muted-foreground hover:text-primary transition-all duration-300 text-sm inline-block hover:translate-x-1">
+                    Solutions
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-primary transition-all duration-300 text-sm inline-block hover:translate-x-1">
-                    About
+                  <a href="#why-choose" className="text-muted-foreground hover:text-primary transition-all duration-300 text-sm inline-block hover:translate-x-1">
+                    Why Choose Us
                   </a>
                 </li>
                 <li>

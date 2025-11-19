@@ -17,8 +17,8 @@ import {
 } from "@/components/ui/navigation-menu";
 
 const menuItems = [
-  { name: "About", href: "#" },
-  { name: "Services", href: "#solutions" },
+  { name: "Problems", href: "#problems" },
+  { name: "Solutions", href: "#solutions" },
   { name: "Why Choose Us", href: "#why-choose" },
   { name: "Contact", href: "#contact" },
 ];
@@ -68,7 +68,7 @@ const Header = () => {
                   className="h-12 w-12 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 drop-shadow-[0_0_15px_rgba(0,217,255,0.3)]"
                 />
                 <span className="text-lg font-condensed font-bold text-foreground tracking-wide hidden sm:inline">
-                  Automated Business Systems
+                  ABS
                 </span>
               </a>
               <div className="flex gap-2">
@@ -125,39 +125,39 @@ const Header = () => {
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "AI Automation",
-    href: "#solutions",
+    title: "Problems We Solve",
+    href: "#problems",
     description:
-      "Transform your business with intelligent automation solutions.",
+      "See the common business bottlenecks we eliminate with automation.",
   },  
   {
-    title: "Process Optimization",
+    title: "Our Solutions",
     href: "#solutions",
     description:
-      "Streamline operations and maximize efficiency with AI-powered workflows.",
+      "Explore our comprehensive AI automation systems and services.",
   },  
   {
-    title: "Custom Solutions",
-    href: "#solutions",
-    description: "Tailored AI solutions designed specifically for your business needs.",
+    title: "AI Integrations",
+    href: "#integrations",
+    description: "Powered by industry-leading AI platforms like Claude, OpenAI, and more.",
   },
   {
-    title: "Why Choose Us",
+    title: "Why Choose ABS",
     href: "#why-choose",
     description:
       "Discover what makes us different in AI automation and business systems.",
   },
   {
-    title: "Case Studies",
-    href: "#",
-    description:
-      "Real results from businesses we've helped transform with AI automation.",
-  },
-  {
-    title: "Contact",
+    title: "Strategy Call",
     href: "#contact",
     description:
-      "Get in touch to discuss how we can automate and optimize your business.",
+      "Book your free consultation to discover how we can transform your business.",
+  },
+  {
+    title: "Contact Us",
+    href: "#contact",
+    description:
+      "Get in touch to discuss your automation needs and start your journey.",
   },
 ];
 
@@ -170,7 +170,7 @@ export function Menus() {
             asChild
             className={cn(navigationMenuTriggerStyle(), "bg-transparent text-xs")}
           >
-            <a href="#">Home</a>
+            <a href="#problems">Problems</a>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
