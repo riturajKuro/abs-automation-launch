@@ -113,11 +113,23 @@ export const createLeadRecord = async (payload: LeadPayload) => {
 
   const result = await response.json();
   // Always log success to see what was actually saved
+  const savedFields = result.records?.[0]?.fields || {};
   console.log('[Airtable] ✅ Success! Record created:', {
     recordId: result.records?.[0]?.id,
-    fieldsSaved: result.records?.[0]?.fields ? Object.keys(result.records[0].fields) : [],
+    fieldsSaved: Object.keys(savedFields),
+    fieldsValues: savedFields,
     fullResponse: result,
   });
+  
+  // Check if any fields we sent didn't get saved
+  const fieldsWeSent = Object.keys(fields);
+  const fieldsActuallySaved = Object.keys(savedFields);
+  const missingFields = fieldsWeSent.filter(f => !fieldsActuallySaved.includes(f));
+  if (missingFields.length > 0) {
+    console.warn('[Airtable] ⚠️ WARNING: These fields were sent but NOT saved:', missingFields);
+    console.warn('[Airtable] ⚠️ This means the field names in Airtable don\'t match exactly. Check field names in your Airtable table.');
+  }
+  
   return result;
 };
 
