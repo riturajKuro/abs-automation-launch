@@ -48,14 +48,14 @@ export const createLeadRecord = async (payload: LeadPayload) => {
       records: [
         {
           fields: {
-            Name: payload.fullName,
-            Email: payload.email,
-            Phone: payload.phone,
+            "Full Name": payload.fullName,
+            "Email": payload.email,
+            "Phone": payload.phone,
             "Business Name": payload.businessName || "Not provided",
             "Automation Interest": payload.automation || "Not specified",
-            Message: payload.message || "Not provided",
-            Source: "Website Contact Form",
-            SubmittedAt: new Date().toISOString(),
+            "Message": payload.message || "Not provided",
+            "Source": "Website Contact Form",
+            "Submitted At": new Date().toISOString(),
           },
         },
       ],
