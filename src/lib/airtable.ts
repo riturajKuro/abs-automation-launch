@@ -59,7 +59,17 @@ export const createLeadRecord = async (payload: LeadPayload) => {
   //   fields["Message"] = payload.message;
   // }
 
+  // Log exactly what we're sending (for debugging)
+  const requestBody = {
+    records: [
+      {
+        fields,
+      },
+    ],
+  };
+  
   console.log('[Airtable] Fields being sent:', Object.keys(fields));
+  console.log('[Airtable] Full payload:', JSON.stringify(requestBody, null, 2));
 
   const response = await fetch(url, {
     method: "POST",
@@ -67,23 +77,33 @@ export const createLeadRecord = async (payload: LeadPayload) => {
       Authorization: `Bearer ${AIRTABLE_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      records: [
-        {
-          fields,
-        },
-      ],
-    }),
+    body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
     const errorBody = await response.text();
-    console.error('[Airtable Error]', {
+    let parsedError;
+    try {
+      parsedError = JSON.parse(errorBody);
+    } catch {
+      parsedError = errorBody;
+    }
+    
+    console.error('[Airtable Error - Full Details]', {
       status: response.status,
       statusText: response.statusText,
-      error: errorBody,
+      url: url,
+      fieldsSent: Object.keys(fields),
+      error: parsedError,
     });
-    throw new Error(`Failed to create Airtable record: ${errorBody}`);
+    
+    // Extract the specific field name causing the error if available
+    if (parsedError?.error?.message) {
+      const errorMsg = parsedError.error.message;
+      console.error('[Airtable Error - Specific Field Issue]', errorMsg);
+    }
+    
+    throw new Error(`Failed to create Airtable record: ${JSON.stringify(parsedError)}`);
   }
 
   const result = await response.json();
