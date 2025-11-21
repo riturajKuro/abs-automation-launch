@@ -38,6 +38,37 @@ export const createLeadRecord = async (payload: LeadPayload) => {
     });
   }
 
+  // Build fields object - start with only the essential required fields
+  // Add optional fields only if they have values
+  const fields: Record<string, string> = {
+    "Full Name": payload.fullName,
+    "Email": payload.email,
+    "Phone": payload.phone,
+  };
+
+  // Only add optional fields if they have actual values
+  // NOTE: If your Airtable table doesn't have these fields, they will cause errors
+  // You can either: 1) Add these fields to your Airtable table, or 2) Remove the lines below
+  
+  if (payload.businessName && payload.businessName.trim()) {
+    fields["Business Name"] = payload.businessName;
+  }
+  
+  // Comment out the next 3 lines if your table doesn't have these fields:
+  // if (payload.automation && payload.automation.trim()) {
+  //   fields["Automation Interest"] = payload.automation;
+  // }
+  
+  if (payload.message && payload.message.trim()) {
+    fields["Message"] = payload.message;
+  }
+
+  // Uncomment these if your table has these fields:
+  // fields["Source"] = "Website Contact Form";
+  // fields["Submitted At"] = new Date().toISOString();
+
+  console.log('[Airtable] Fields being sent:', Object.keys(fields));
+
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -47,16 +78,7 @@ export const createLeadRecord = async (payload: LeadPayload) => {
     body: JSON.stringify({
       records: [
         {
-          fields: {
-            "Full Name": payload.fullName,
-            "Email": payload.email,
-            "Phone": payload.phone,
-            "Business Name": payload.businessName || "Not provided",
-            "Automation Interest": payload.automation || "Not specified",
-            "Message": payload.message || "Not provided",
-            "Source": "Website Contact Form",
-            "Submitted At": new Date().toISOString(),
-          },
+          fields,
         },
       ],
     }),
