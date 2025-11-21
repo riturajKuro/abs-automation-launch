@@ -1,5 +1,5 @@
 "use client"; 
-import { Equal, X, Moon, Sun } from "lucide-react";
+import { Equal, X, Moon, Sun } from "@aliimam/icons";
 import * as React from "react"; 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";   
@@ -253,6 +253,7 @@ export function ModeToggle() {
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
     if (newTheme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
