@@ -38,34 +38,26 @@ export const createLeadRecord = async (payload: LeadPayload) => {
     });
   }
 
-  // Build fields object - start with only the essential required fields
-  // Add optional fields only if they have values
+  // Build fields object - ONLY send fields that exist in your Airtable table
+  // Start with the minimum required fields
   const fields: Record<string, string> = {
     "Full Name": payload.fullName,
     "Email": payload.email,
     "Phone": payload.phone,
   };
 
-  // Only add optional fields if they have actual values
-  // NOTE: If your Airtable table doesn't have these fields, they will cause errors
-  // You can either: 1) Add these fields to your Airtable table, or 2) Remove the lines below
+  // Only add other fields if they exist in your table AND have values
+  // Remove or comment out any fields below that don't exist in your Airtable table
   
-  if (payload.businessName && payload.businessName.trim()) {
-    fields["Business Name"] = payload.businessName;
-  }
-  
-  // Comment out the next 3 lines if your table doesn't have these fields:
-  // if (payload.automation && payload.automation.trim()) {
-  //   fields["Automation Interest"] = payload.automation;
+  // Uncomment the line below if your table has a "Business Name" field:
+  // if (payload.businessName && payload.businessName.trim()) {
+  //   fields["Business Name"] = payload.businessName;
   // }
   
-  if (payload.message && payload.message.trim()) {
-    fields["Message"] = payload.message;
-  }
-
-  // Uncomment these if your table has these fields:
-  // fields["Source"] = "Website Contact Form";
-  // fields["Submitted At"] = new Date().toISOString();
+  // Uncomment the lines below if your table has a "Message" field:
+  // if (payload.message && payload.message.trim()) {
+  //   fields["Message"] = payload.message;
+  // }
 
   console.log('[Airtable] Fields being sent:', Object.keys(fields));
 
