@@ -38,26 +38,36 @@ export const createLeadRecord = async (payload: LeadPayload) => {
     });
   }
 
-  // Build fields object - ONLY send fields that exist in your Airtable table
-  // Start with the minimum required fields
+  // Build fields object - match EXACT field names from your Airtable table
   const fields: Record<string, string> = {
     "Full Name": payload.fullName,
     "Email": payload.email,
     "Phone": payload.phone,
   };
 
-  // Only add other fields if they exist in your table AND have values
-  // Remove or comment out any fields below that don't exist in your Airtable table
+  // Add optional fields if they have values (using exact Airtable field names)
+  if (payload.businessName && payload.businessName.trim()) {
+    fields["Business Name"] = payload.businessName;
+  }
   
-  // Uncomment the line below if your table has a "Business Name" field:
-  // if (payload.businessName && payload.businessName.trim()) {
-  //   fields["Business Name"] = payload.businessName;
-  // }
+  // Map automation value to Airtable field "What Do You Want to Automate?"
+  if (payload.automation && payload.automation.trim()) {
+    // Map form values to display labels
+    const automationMap: Record<string, string> = {
+      "social": "Social Media Management",
+      "leads": "Lead Generation",
+      "calls": "Call Handling",
+      "analytics": "Analytics & Reporting",
+      "all": "Full Automation Suite",
+    };
+    const automationLabel = automationMap[payload.automation] || payload.automation;
+    fields["What Do You Want to Automate?"] = automationLabel;
+  }
   
-  // Uncomment the lines below if your table has a "Message" field:
-  // if (payload.message && payload.message.trim()) {
-  //   fields["Message"] = payload.message;
-  // }
+  // Message field name in Airtable is "Message (Optional)"
+  if (payload.message && payload.message.trim()) {
+    fields["Message (Optional)"] = payload.message;
+  }
 
   // Log exactly what we're sending (for debugging)
   const requestBody = {
