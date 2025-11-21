@@ -54,17 +54,9 @@ export const createLeadRecord = async (payload: LeadPayload) => {
   }
   
   // Map automation value to Airtable field "What Do You Want to Automate?"
+  // Note: The form already sends the label (e.g., "Social Media Management") via automation field
   if (payload.automation && payload.automation.trim()) {
-    // Map form values to display labels
-    const automationMap: Record<string, string> = {
-      "social": "Social Media Management",
-      "leads": "Lead Generation",
-      "calls": "Call Handling",
-      "analytics": "Analytics & Reporting",
-      "all": "Full Automation Suite",
-    };
-    const automationLabel = automationMap[payload.automation] || payload.automation;
-    fields["What Do You Want to Automate?"] = automationLabel;
+    fields["What Do You Want to Automate?"] = payload.automation;
   }
   
   // Message field name in Airtable is "Message (Optional)"
