@@ -6,47 +6,79 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { createLeadRecord, isAirtableConfigured } from "@/lib/airtable";
+
+const automationOptions = [
+  { value: "social", label: "Social Media Management" },
+  { value: "leads", label: "Lead Generation" },
+  { value: "calls", label: "Call Handling" },
+  { value: "analytics", label: "Analytics & Reporting" },
+  { value: "all", label: "Full Automation Suite" },
+] as const;
+
+const initialFormState = {
+  fullName: "",
+  businessName: "",
+  email: "",
+  phone: "",
+  automation: "",
+  message: "",
+};
 
 const ContactForm = () => {
   const { toast } = useToast();
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
-  const [formData, setFormData] = useState({
-    fullName: "",
-    businessName: "",
-    email: "",
-    phone: "",
-    automation: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(initialFormState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
     if (!formData.fullName || !formData.email || !formData.phone) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields.",
+        description: "Please fill in all required fields (Full Name, Email, Phone).",
         variant: "destructive",
       });
       return;
     }
 
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
+    if (!isAirtableConfigured) {
+      toast({
+        title: "Submission unavailable",
+        description: "Airtable is not configured yet. Please contact support.",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    // Reset form
-    setFormData({
-      fullName: "",
-      businessName: "",
-      email: "",
-      phone: "",
-      automation: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+
+    const automationLabel = automationOptions.find((option) => option.value === formData.automation)?.label;
+
+    try {
+      await createLeadRecord({
+        ...formData,
+        automation: automationLabel,
+      });
+
+      toast({
+        title: "Message Sent!",
+        description: "Thanks for reaching out. We’ll respond within 1 business day.",
+      });
+
+      setFormData(initialFormState);
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Submission failed",
+        description: "We couldn’t submit your request. Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -144,11 +176,11 @@ const ContactForm = () => {
                     <SelectValue placeholder="Select an option" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="social">Social Media Management</SelectItem>
-                    <SelectItem value="leads">Lead Generation</SelectItem>
-                    <SelectItem value="calls">Call Handling</SelectItem>
-                    <SelectItem value="analytics">Analytics & Reporting</SelectItem>
-                    <SelectItem value="all">Everything</SelectItem>
+                    {automationOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -170,6 +202,7 @@ const ContactForm = () => {
                 type="submit"
                 size="lg"
                 className="group w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg py-6 shadow-[0_0_40px_-10px] shadow-primary/50 transition-all duration-700 hover:shadow-[0_0_60px_-5px] hover:shadow-primary/80 hover:-translate-y-1 hover:scale-[1.02]"
+              disabled={isSubmitting}
               >
                 Book My Free Strategy Call
                 <Send className="ml-2 w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 group-hover:rotate-12" />

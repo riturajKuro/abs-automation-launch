@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useMemo } from 'react';
-import { Canvas, useFrame, extend } from '@react-three/fiber';
+import { Canvas, useFrame, extend, type ReactThreeFiber } from '@react-three/fiber';
 import { shaderMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -155,9 +155,14 @@ const CPPNShaderMaterial = shaderMaterial(
 
 extend({ CPPNShaderMaterial });
 
+type CPPNMaterialInstance = InstanceType<typeof CPPNShaderMaterial> & {
+  iTime: number;
+  iResolution: THREE.Vector2;
+};
+
 function ShaderPlane() {
-  const meshRef = useRef<THREE.Mesh>(null!);
-  const materialRef = useRef<any>(null!);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<CPPNMaterialInstance | null>(null);
 
   useFrame((state) => {
     if (!materialRef.current) return;
@@ -202,7 +207,7 @@ function ShaderBackground() {
   );
   
   return (
-    <div ref={canvasRef} className="bg-black absolute inset-0 -z-10 w-full h-full" aria-hidden>
+    <div ref={canvasRef} className="bg-black absolute inset-0 -z-10 w-full h-full" aria-hidden="true">
       <Canvas
         camera={camera}
         gl={{ antialias: true, alpha: false }}
@@ -366,6 +371,6 @@ export default function NeuralNetworkHero({
 
 declare module '@react-three/fiber' {
   interface ThreeElements {
-    cPPNShaderMaterial: any;
+    cPPNShaderMaterial: ReactThreeFiber.Object3DNode<CPPNMaterialInstance, typeof CPPNShaderMaterial>;
   }
 }
