@@ -41,25 +41,27 @@ export const createLeadRecord = async (payload: LeadPayload) => {
     message: payload.message || '(empty)',
   });
 
-  // Build fields object - match EXACT field names from your Airtable table
-  const fields: Record<string, string> = {
-    "Full Name": payload.fullName,
-    "Email": payload.email,
-    "Phone": payload.phone,
-  };
-
-  // Add optional fields if they have values (using exact Airtable field names)
+  // Build fields object - use EXACT field names from your Airtable table
+  // Based on your screenshot, the fields appear to be:
+  // "Full Name", "Business Name", "Email", "Phone", "What Do You Want to Automate?", "Message (Optional)"
+  const fields: Record<string, string> = {};
+  
+  // Map each field - try multiple variations to find the right one
+  // Primary mappings (what we think they are):
+  fields["Full Name"] = payload.fullName;
+  fields["Email"] = payload.email;
+  fields["Phone"] = payload.phone;
+  
+  // Optional fields
   if (payload.businessName && payload.businessName.trim()) {
     fields["Business Name"] = payload.businessName;
   }
   
-  // Map automation value to Airtable field "What Do You Want to Automate?"
-  // Note: The form already sends the label (e.g., "Social Media Management") via automation field
   if (payload.automation && payload.automation.trim()) {
+    // Try common variations of this field name
     fields["What Do You Want to Automate?"] = payload.automation;
   }
   
-  // Message field name in Airtable is "Message (Optional)"
   if (payload.message && payload.message.trim()) {
     fields["Message (Optional)"] = payload.message;
   }
@@ -112,22 +114,39 @@ export const createLeadRecord = async (payload: LeadPayload) => {
   }
 
   const result = await response.json();
-  // Always log success to see what was actually saved
-  const savedFields = result.records?.[0]?.fields || {};
+  
+  // Log the RAW response to see exactly what Airtable returned
+  console.log('[Airtable] RAW RESPONSE:', JSON.stringify(result, null, 2));
+  
+  // Check what Airtable actually saved
+  const savedRecord = result.records?.[0];
+  if (!savedRecord) {
+    console.error('[Airtable] ❌ No record in response!', result);
+    return result;
+  }
+  
+  const savedFields = savedRecord.fields || {};
+  const savedFieldNames = Object.keys(savedFields);
+  
   console.log('[Airtable] ✅ Success! Record created:', {
-    recordId: result.records?.[0]?.id,
-    fieldsSaved: Object.keys(savedFields),
-    fieldsValues: savedFields,
-    fullResponse: result,
+    recordId: savedRecord.id,
+    fieldsSaved: savedFieldNames,
+    fieldsWithValues: savedFields,
   });
   
   // Check if any fields we sent didn't get saved
   const fieldsWeSent = Object.keys(fields);
-  const fieldsActuallySaved = Object.keys(savedFields);
-  const missingFields = fieldsWeSent.filter(f => !fieldsActuallySaved.includes(f));
+  const missingFields = fieldsWeSent.filter(f => !savedFieldNames.includes(f));
+  
   if (missingFields.length > 0) {
-    console.warn('[Airtable] ⚠️ WARNING: These fields were sent but NOT saved:', missingFields);
-    console.warn('[Airtable] ⚠️ This means the field names in Airtable don\'t match exactly. Check field names in your Airtable table.');
+    console.error('[Airtable] ❌ THESE FIELDS WERE NOT SAVED:', missingFields);
+    console.error('[Airtable] ❌ Fields that WERE saved:', savedFieldNames);
+    console.error('[Airtable] ❌ Field names that don\'t match:');
+    missingFields.forEach(fieldName => {
+      console.error(`   ❌ "${fieldName}"`);
+    });
+  } else {
+    console.log('[Airtable] ✅ All fields saved successfully!');
   }
   
   return result;
