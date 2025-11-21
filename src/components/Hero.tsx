@@ -50,7 +50,7 @@ const Hero = () => {
               backgroundSize: '200% 100%'
             }} />
               <div className="relative rounded-lg overflow-hidden border border-border/50 shadow-inner">
-                <img src={dashboardMockup} alt="AI Automation Dashboard showing real-time analytics, lead flow, and performance metrics" className="w-full h-auto transform transition-all duration-1000 group-hover:scale-[1.03]" />
+                <img alt="AI Automation Dashboard showing real-time analytics, lead flow, and performance metrics" src="/lovable-uploads/e1fd0e97-8be5-4d4a-99d1-e18d9b7017c3.png" className="w-full h-auto transform transition-all duration-1000 group-hover:scale-[1.03] object-cover" />
               </div>
             </div>
           </div>
