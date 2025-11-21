@@ -31,12 +31,15 @@ export const createLeadRecord = async (payload: LeadPayload) => {
 
   const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_ID!)}`;
 
-  if (import.meta.env.DEV) {
-    console.log('[Airtable] Creating lead record:', {
-      url: `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`,
-      payload: { ...payload, automation: payload.automation || "Not specified" },
-    });
-  }
+  // Always log what we receive (for debugging)
+  console.log('[Airtable] Received payload from form:', {
+    fullName: payload.fullName,
+    businessName: payload.businessName || '(empty)',
+    email: payload.email,
+    phone: payload.phone,
+    automation: payload.automation || '(empty)',
+    message: payload.message || '(empty)',
+  });
 
   // Build fields object - match EXACT field names from your Airtable table
   const fields: Record<string, string> = {
@@ -117,9 +120,12 @@ export const createLeadRecord = async (payload: LeadPayload) => {
   }
 
   const result = await response.json();
-  if (import.meta.env.DEV) {
-    console.log('[Airtable] Success:', result);
-  }
+  // Always log success to see what was actually saved
+  console.log('[Airtable] ✅ Success! Record created:', {
+    recordId: result.records?.[0]?.id,
+    fieldsSaved: result.records?.[0]?.fields ? Object.keys(result.records[0].fields) : [],
+    fullResponse: result,
+  });
   return result;
 };
 
