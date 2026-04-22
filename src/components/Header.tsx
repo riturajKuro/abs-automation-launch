@@ -94,6 +94,7 @@ const Header = () => {
                     <li key={index}>
                       <a
                         href={item.href}
+                        onClick={() => setMenuState(false)}
                         className="text-muted-foreground hover:text-primary text-sm block duration-150"
                       >
                         <span>{item.name}</span>
@@ -193,8 +194,8 @@ export function Menus() {
           <NavigationMenuTrigger className="bg-transparent text-xs">
             Resources
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="p-2">
-            <ul className="grid gap-3 md:grid-cols-3 max-w-xl lg:w-3xl">
+          <NavigationMenuContent className="p-2 md:min-w-[620px]">
+            <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
               {components.map((component) => (
                 <ListItem
                   key={component.title}
@@ -227,7 +228,7 @@ function ListItem({
   ...props
 }: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
   return (
-    <li {...props}>
+    <li className="min-w-[180px]" {...props}>
       <NavigationMenuLink asChild>
         <a className="p-3 block hover:bg-accent rounded-md transition-colors" href={href}>
           <div className="text-sm leading-none font-medium">{title}</div>
